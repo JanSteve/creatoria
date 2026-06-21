@@ -7,13 +7,13 @@ node_modules/
 /coverage
 
 # Production/Build outputs
-/build
-/.next/
-/out/
-/dist/
-/.expo/
-/*.web-build/
-/*.web-manifest/
+build/
+.next/
+out/
+dist/
+.expo/
+*.web-build/
+*.web-manifest/
 
 # Local env files
 .env

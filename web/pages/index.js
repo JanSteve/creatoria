@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { FiSearch, FiSliders, FiArrowRight } from 'react-icons/fi';
+import { FiSearch, FiArrowRight, FiShield, FiZap, FiBriefcase, FiTrendingUp, FiCheckCircle } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../lib/api';
 
@@ -42,51 +43,148 @@ export default function Home({ initialProducts, pagination, categoryParam, searc
   return (
     <>
       <Head>
-        <title>Creatoria | Premium Digital Marketplace</title>
+        <title>Creatoria | Premium Multi-Vendor Digital Marketplace</title>
         <meta name="description" content="Explore state-of-the-art developer themes, digital designs, and creator templates in dark mode." />
       </Head>
 
       <div className="flex-grow flex flex-col">
         {/* Premium Hero Banner */}
-        <section className="relative py-20 lg:py-28 overflow-hidden">
+        <section className="relative py-24 lg:py-36 overflow-hidden">
           {/* Radial glow background */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-primary/10 to-secondary/15 rounded-full blur-[80px] -z-10" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-full blur-[120px] -z-10" />
 
-          <div className="max-w-4xl mx-auto text-center px-4 space-y-6">
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
-              Discover Premium <br />
+          {/* Background Grid Pattern Accent */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none -z-20" />
+
+          <div className="max-w-5xl mx-auto text-center px-4 space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-primary"
+            >
+              <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
+              <span>Next-Gen Creator Economy</span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-5xl sm:text-7xl font-black tracking-tight text-white leading-[1.1]"
+            >
+              Unleash Elite <br />
               <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                Digital Assets & Templates
+                Digital Engineering Assets
               </span>
-            </h1>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Unlock a curation of elite development modules, design templates, and subscription libraries. Guarded storage, lifetime accesses.
-            </p>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-medium"
+            >
+              Curated digital libraries, premium boilerplates, templates, and subscription modules. Powered by secure S3 delivery & instant Stripe transfers.
+            </motion.p>
 
             {/* Search Bar Form */}
-            <form onSubmit={handleSearchSubmit} className="max-w-xl mx-auto pt-4">
-              <div className="relative glassmorphism rounded-2xl p-1 flex items-center shadow-2xl border-slate-800">
-                <FiSearch className="w-5 h-5 text-slate-500 ml-4" />
+            <motion.form
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              onSubmit={handleSearchSubmit}
+              className="max-w-2xl mx-auto pt-6"
+            >
+              <div className="relative glassmorphism rounded-2xl p-1.5 flex items-center shadow-2xl border-slate-800 focus-within:border-slate-700 transition-all">
+                <FiSearch className="w-5 h-5 text-slate-500 ml-4 flex-shrink-0" />
                 <input
                   type="text"
-                  placeholder="Search products (e.g. Next.js template, iOS kit)..."
+                  placeholder="Search elite UI kits, templates, configurations..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full bg-transparent border-0 focus:ring-0 text-white placeholder-slate-500 text-sm px-4 py-3 outline-none"
+                  className="w-full bg-transparent border-0 focus:ring-0 text-white placeholder-slate-500 text-sm sm:text-base px-4 py-3.5 outline-none"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-primary hover:bg-indigo-600 font-semibold text-white shadow-lg shadow-primary/20 transition-all text-sm flex items-center space-x-1"
+                  className="px-8 py-3.5 rounded-xl bg-primary hover:bg-indigo-600 font-bold text-white shadow-lg shadow-primary/25 transition-all text-sm sm:text-base flex items-center space-x-1.5 glow-effect"
                 >
                   <span>Search</span>
                 </button>
               </div>
-            </form>
+            </motion.form>
           </div>
         </section>
 
-        {/* Filter Bar & Grid */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 flex-grow flex flex-col space-y-8">
+        {/* Dynamic Stats Bar */}
+        <section className="border-y border-slate-900 bg-slate-950/20 backdrop-blur-sm py-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div>
+                <p className="text-3xl sm:text-4xl font-extrabold text-white">50k+</p>
+                <p className="text-xs sm:text-sm text-slate-500 font-semibold uppercase mt-1">Digital Assets</p>
+              </div>
+              <div>
+                <p className="text-3xl sm:text-4xl font-extrabold text-white">$2.4M</p>
+                <p className="text-xs sm:text-sm text-slate-500 font-semibold uppercase mt-1">Creator Earnings</p>
+              </div>
+              <div>
+                <p className="text-3xl sm:text-4xl font-extrabold text-white">99.9%</p>
+                <p className="text-xs sm:text-sm text-slate-500 font-semibold uppercase mt-1">Delivery Uptime</p>
+              </div>
+              <div>
+                <p className="text-3xl sm:text-4xl font-extrabold text-white">24/7</p>
+                <p className="text-xs sm:text-sm text-slate-500 font-semibold uppercase mt-1">Instant Support</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Value Proposition Grid */}
+        <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+          <div className="text-center space-y-3">
+            <h2 className="text-xs font-bold text-primary uppercase tracking-wider">Engineered For Excellence</h2>
+            <p className="text-3xl sm:text-4xl font-black text-white">Platform Infrastructure Features</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="glassmorphism p-8 rounded-3xl border-slate-900 relative group overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl pointer-events-none" />
+              <div className="p-4 bg-primary/10 rounded-2xl w-fit text-primary border border-primary/20 mb-6">
+                <FiZap className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Instant Delivery Infrastructure</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Guarded assets are delivered instantly upon purchase via AWS S3 secured presigned URL routes. Fast downloads, zero wait.
+              </p>
+            </div>
+
+            <div className="glassmorphism p-8 rounded-3xl border-slate-900 relative group overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full blur-2xl pointer-events-none" />
+              <div className="p-4 bg-secondary/10 rounded-2xl w-fit text-secondary border border-secondary/20 mb-6">
+                <FiShield className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Secure Payment Splits</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Stripe Connect routes payments directly to creator banks with configured revenue sharing metrics. Completely automated, clear audits.
+              </p>
+            </div>
+
+            <div className="glassmorphism p-8 rounded-3xl border-slate-900 relative group overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full blur-2xl pointer-events-none" />
+              <div className="p-4 bg-accent/10 rounded-2xl w-fit text-accent border border-accent/20 mb-6">
+                <FiBriefcase className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Elite Creator Verification</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Every single developer or designer application is manually vetted by admins before approvals. Quality control at its highest.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Catalog Section */}
+        <section id="catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 flex-grow flex flex-col space-y-8 border-t border-slate-900/60 pt-16">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-900">
             {/* Category Pills */}
             <div className="flex flex-wrap gap-2">
@@ -96,7 +194,7 @@ export default function Home({ initialProducts, pagination, categoryParam, searc
                   <button
                     key={cat}
                     onClick={() => handleCategoryClick(cat)}
-                    className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all ${
+                    className={`px-5 py-2.5 text-xs font-bold rounded-full border transition-all ${
                       isSelected
                         ? 'bg-primary border-primary text-white shadow-md shadow-primary/10'
                         : 'border-slate-800 text-slate-400 hover:border-slate-700 hover:text-white bg-slate-900/40'
@@ -109,28 +207,28 @@ export default function Home({ initialProducts, pagination, categoryParam, searc
             </div>
 
             {/* Metadata Info */}
-            <div className="text-xs text-slate-500 font-medium">
-              Showing {initialProducts.length} of {pagination.total} results
+            <div className="text-xs text-slate-500 font-bold uppercase tracking-wider">
+              Showing {initialProducts.length} of {pagination.total} Results
             </div>
           </div>
 
           {/* Products Grid */}
           {initialProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {initialProducts.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 glassmorphism rounded-2xl border-slate-800">
-              <p className="text-slate-400 font-medium text-lg">No products found</p>
-              <p className="text-slate-500 text-sm mt-1">Try modifying your query or category filter</p>
+            <div className="text-center py-24 glassmorphism rounded-3xl border-slate-800">
+              <p className="text-slate-400 font-bold text-lg">No assets match your search parameters</p>
+              <p className="text-slate-500 text-sm mt-2">Try clearing your filters or testing new keywords.</p>
             </div>
           )}
 
           {/* Pagination Controls */}
           {pagination.pages > 1 && (
-            <div className="flex justify-center space-x-2 pt-10">
+            <div className="flex justify-center space-x-2 pt-12">
               {Array.from({ length: pagination.pages }).map((_, idx) => {
                 const pageNum = idx + 1;
                 const isCurrent = pageNum === pagination.page;
@@ -138,10 +236,10 @@ export default function Home({ initialProducts, pagination, categoryParam, searc
                   <button
                     key={pageNum}
                     onClick={() => updateQuery({ page: pageNum })}
-                    className={`w-10 h-10 rounded-xl font-bold transition-all text-sm ${
+                    className={`w-12 h-12 rounded-xl font-bold transition-all text-sm border ${
                       isCurrent
-                        ? 'bg-primary text-white shadow-md shadow-primary/10'
-                        : 'bg-darkCard hover:bg-slate-800 border border-slate-800 text-slate-300'
+                        ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20'
+                        : 'bg-darkCard hover:bg-slate-800 border-slate-800 text-slate-300'
                     }`}
                   >
                     {pageNum}
@@ -175,7 +273,6 @@ export async function getServerSideProps(context) {
   } catch (error) {
     console.error('getServerSideProps Home error:', error.message);
     
-    // Provide offline/dev sandbox mock products in case backend isn't booted up yet
     const fallbackProducts = [
       {
         _id: 'mock-1',
